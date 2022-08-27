@@ -47,10 +47,14 @@ primos limit = [i | i <- [1..limit], ehPrimo i]
 --7. Nem  só  de  Fibonacci  vivem  os  exemplos  de  recursão.  Escreva  uma  função  que  devolva todos os números de uma sequência de Lucas (2, 1, 3, 4, 7, 11, 18, 29, 47, 76, 123) menores que um inteiro dado. 
 {-
 -}
-lucas :: Int -> [Int]
-lucas 2 = [2]
-lucas 1 = [2,1]
-lucas limit = [i | i <- [fibonacci 1..fibonacci limit], i < limit]
+lucas :: Int -> Int
+lucas 0 = 2
+lucas 1 = 1
+lucas n = lucas (n - 1) + lucas (n - 2)
+
+montaLista :: Int -> [Int]
+montaLista limit = [(lucas i) | i <- [0..limit], lucas i < limit]
+
 
 
 --8.Escreva uma função, chamada aoContrario em Haskel para reverter uma lista. Dado [1,2,3] devolva [3,2,1]. 
@@ -106,7 +110,13 @@ main = do
 
 
   putStr "Func. 7: entrada:5; resultado:"
-  print(lucas 5)
+  print(montaLista 5)
+  putStr "Func. 7: entrada:10; resultado:"
+  print(montaLista 10)
+  putStr "Func. 7: entrada:20; resultado:"
+  print(montaLista 20)
+  putStr "Func. 7: entrada:30; resultado:"
+  print(montaLista 30)
 
   putStr "Func. 8: entrada:[1,2,3]; resultado:"
   print(aoContrario [1,2,3])
